@@ -1,0 +1,11 @@
+langchain
+langchain_community
+pinecone
+python-dotenv
+urllib3
+google-generativeai
+langchain_google_genai
+pinecone-client
+pandas
+numpy
+Flask
