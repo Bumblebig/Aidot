@@ -1,4 +1,3 @@
-# main.py
 import os
 from pinecone import Pinecone
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
@@ -9,6 +8,7 @@ from langchain.chains import RetrievalQA
 import google.generativeai as genai
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # Load environment variables
 load_dotenv()
@@ -21,9 +21,10 @@ pc = Pinecone(api_key=PINECONE_API_KEY)
 genai.configure(api_key=GOOGLE_API_KEY)
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for the Flask app
 
 def get_conversational_chain():
-    prompt_template= """
+    prompt_template = """
     Answer the question as detailed as possible from the provided context, make sure to provide all the details, if the answer is not in the provided context just say, "answer is not available in the context", don't provide the wrong answer\n\n
     Context:\n {context}?\n
     Question: \n{question}\n
@@ -62,3 +63,4 @@ def chatbot():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
